@@ -1,60 +1,146 @@
 package com.txus.pachangasnavigation.ui.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.txus.pachangasnavigation.App
 import com.txus.pachangasnavigation.R
+import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
+import com.txus.pachangasnavigation.databinding.FragmentPerfilBinding
+import com.txus.pachangasnavigation.models.Usuario
+import com.txus.pachangasnavigation.utils.Constantes
+import com.txus.pachangasnavigation.viewmodel.UsuarioViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PerfilFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PerfilFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding:FragmentPerfilBinding?=null
+
+    private val TAG="PROFILE_FRAGMENT"
+    private val CODE_IMAGE_PICK=1
+
+    private var uriFoto: Uri?=null
+    private val model:UsuarioViewModel by viewModels()
+    private lateinit var usuario:Usuario
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_perfil, container, false)
+
+        _binding= FragmentPerfilBinding.inflate(layoutInflater,container,false)
+        var binding=_binding!!
+        val view=binding.root
+
+        model.findOneById(App.getAuth().currentUser!!.uid).observe(viewLifecycleOwner,{
+            usuario=it
+            if (!usuario.imageUrl.isNullOrBlank()){
+
+                val circularProgress=CircularProgressDrawable(requireContext())
+                circularProgress.strokeWidth=5f
+                circularProgress.centerRadius=30f
+                circularProgress.start()
+
+                Glide
+                    .with(this)
+                    .load(usuario.imageUrl)
+                    .fitCenter()
+                    .placeholder(circularProgress)
+                    .into(binding.perfilImageProfile)
+            }
+            binding.perfilTieEdad.setText(it.edad.toString())
+            binding.perfilTieEmail.setText(it.email)
+            binding.perfilTieNombre.setText(it.nombre)
+
+
+
+        })
+
+        binding.perfilImageProfile.setOnClickListener {
+            val intent=Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent,CODE_IMAGE_PICK)
+        }
+
+        binding.perfilBtnActualizar.setOnClickListener {
+            save()
+        }
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PerfilFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PerfilFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun save() {
+       if (uriFoto!=null){
+
+           val storage=App.getStorage()
+           val reference=
+               storage.reference.child(Constantes.IMAGENES+"/"+App.getAuth().currentUser!!.uid+"/image_profile")
+
+               reference.putFile(uriFoto!!)
+                   .addOnSuccessListener {
+                       it.storage.downloadUrl.addOnSuccessListener { url->
+                           usuario.imageUrl=url.toString()
+                           saveUser()
+                       }
+                   }
+                   .addOnFailureListener {
+                       Snackbar.make(
+                           _binding!!.root,
+                           "Nos se ha podido subir la imagen a Storage",
+                           Snackbar.LENGTH_SHORT
+                       ).show()
+                   }
+
+       }else{
+
+           saveUser()
+       }
     }
+
+    private fun saveUser() {
+       model.updateUsuario(usuario).observe(viewLifecycleOwner,{
+
+           if (it){
+               Snackbar.make(
+                   _binding!!.root,
+                   "Usuario actualizado!",
+                   Snackbar.LENGTH_SHORT
+               ).show()
+
+           }else{
+
+               Snackbar.make(
+                   _binding!!.root,
+                   "Error al actualizar",
+                   Snackbar.LENGTH_SHORT
+               ).show()
+           }
+       })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when(requestCode){
+
+            CODE_IMAGE_PICK->{
+
+                uriFoto=data?.data
+                _binding!!.perfilImageProfile.setImageURI(uriFoto)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding=null
+    }
+
+
 }

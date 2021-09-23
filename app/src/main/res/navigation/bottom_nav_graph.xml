@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/bottom_nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav_graph"
+    app:startDestination="@id/crearpartidafragment">
+    <fragment
 
+        android:id="@+id/partidasabiertasfragment"
+        android:name="com.txus.pachangasnavigation.ui.fragments.PartidasAbiertasFragment"
+        android:label="fragment_partidas_abiertas"
+        tools:layout="@layout/fragment_partidas_abiertas" />
+    <fragment
+        android:id="@+id/crearpartidafragment"
+        android:name="com.txus.pachangasnavigation.ui.fragments.CrearPartidaFragment"
+        android:label="fragment_crear_partida"
+        tools:layout="@layout/fragment_crear_partida" />
+    <fragment
+        android:id="@+id/mispartidasfragment"
+        android:name="com.txus.pachangasnavigation.ui.fragments.MisPartidasFragment"
+        android:label="fragment_mis_partidas"
+        tools:layout="@layout/fragment_mis_partidas" />
+    <fragment
+        android:id="@+id/miperfilfragment"
+        android:name="com.txus.pachangasnavigation.ui.fragments.PerfilFragment"
+        android:label="fragment_perfil"
+        tools:layout="@layout/fragment_perfil" />
 </navigation>

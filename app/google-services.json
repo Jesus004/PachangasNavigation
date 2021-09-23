@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "385254880268",
+    "project_id": "pachanganavigation",
+    "storage_bucket": "pachanganavigation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385254880268:android:cd921046dabf1c091eea29",
+        "android_client_info": {
+          "package_name": "com.txus.pachangasnavigation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385254880268-imaitdasl50usgbvj8fgsa22sa1jtfms.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfUGViTcqPzwwjIlN9SQfZeL6zCpGrG8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385254880268-imaitdasl50usgbvj8fgsa22sa1jtfms.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

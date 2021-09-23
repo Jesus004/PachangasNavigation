@@ -1,14 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.CrearPartidaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_line_v10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_line_v90"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_line_h10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_line_h90"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_cancelar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="cancelar"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toTopOf="@id/guide_line_h90"
+        app:layout_constraintEnd_toStartOf="@id/guide_line_v90"
+        app:layout_constraintStart_toEndOf="@id/guide_line_v10"
+        app:strokeWidth="2dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_crear_partida"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="crear partida"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_cancelar"
+        app:layout_constraintEnd_toStartOf="@id/guide_line_v90"
+        app:layout_constraintStart_toEndOf="@id/guide_line_v10"
+        app:strokeWidth="2dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/til_lugar"
+
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:hint="Lugar"
+        app:layout_constraintBottom_toTopOf="@id/btn_crear_partida"
+        app:layout_constraintEnd_toStartOf="@id/guide_line_v90"
+        app:layout_constraintStart_toEndOf="@id/guide_line_v10">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/crear_partida_tie_lugar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/til_hora"
+
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="Hora"
+        app:layout_constraintBottom_toTopOf="@id/til_lugar"
+        app:layout_constraintEnd_toStartOf="@id/guide_line_v90"
+        app:layout_constraintStart_toEndOf="@id/guide_line_v10">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/crear_partida_tie_hora"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="time" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/til_fecha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="Fecha"
+        app:layout_constraintBottom_toTopOf="@id/til_hora"
+        app:layout_constraintEnd_toStartOf="@id/guide_line_v90"
+        app:layout_constraintStart_toEndOf="@id/guide_line_v10">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/crear_partida_tie_fecha"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="date"/>
+
+
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/til_numjug"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="Nº Jugadores"
+        app:layout_constraintBottom_toTopOf="@id/til_fecha"
+        app:layout_constraintEnd_toStartOf="@id/guide_line_v90"
+        app:layout_constraintStart_toEndOf="@id/guide_line_v10">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_numjug"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="number"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/til_deporte"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="Deporte"
+        app:layout_constraintBottom_toTopOf="@id/til_numjug"
+        app:layout_constraintEnd_toStartOf="@id/guide_line_v90"
+        app:layout_constraintStart_toEndOf="@id/guide_line_v10">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/crear_partida_tie_deporte"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"/>
+
+
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="294dp"
+        android:layout_height="46dp"
+
+        android:text="  Crear Partida"
+        android:textAllCaps="true"
+
+        android:textColor="@color/color_secondary_variant"
+
+
+        android:textSize="36sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/til_deporte"
+        app:layout_constraintEnd_toStartOf="@+id/guide_line_v90"
+
+        app:layout_constraintStart_toStartOf="@+id/guide_line_v10"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

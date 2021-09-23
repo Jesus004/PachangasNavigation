@@ -1,14 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.PerfilFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideV10"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideV90"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideH10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <LinearLayout
+        android:id="@+id/linear_botones"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/guideH10"
+        app:layout_constraintEnd_toEndOf="@id/guideV90"
+        app:layout_constraintStart_toStartOf="@id/guideV10">
+
+        <com.google.android.material.button.MaterialButton
+
+            android:id="@+id/perfil_btn_cancelar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:text="cancelar"
+            app:cornerRadius="15dp"
+            app:strokeWidth="2dp" />
+
+        <com.google.android.material.button.MaterialButton
+
+            android:id="@+id/perfil_btn_actualizar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:text="actualizar"
+            app:cornerRadius="15dp"
+            app:strokeWidth="2dp" />
+
+    </LinearLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/perfil_til_edad"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Introduzca su edad"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintBottom_toTopOf="@id/linear_botones"
+        app:layout_constraintEnd_toEndOf="@id/guideV90"
+        app:layout_constraintStart_toStartOf="@id/guideV10">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/perfil_tie_edad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:digits="0123456789"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/perfil_til_nombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Introduzca su nombre"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintBottom_toTopOf="@id/perfil_til_edad"
+        app:layout_constraintEnd_toEndOf="@id/guideV90"
+        app:layout_constraintStart_toStartOf="@id/guideV10">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/perfil_tie_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textCapWords" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/perfil_til_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Email"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintBottom_toTopOf="@id/perfil_til_nombre"
+        app:layout_constraintEnd_toEndOf="@id/guideV90"
+        app:layout_constraintStart_toStartOf="@id/guideV10">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/perfil_tie_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/perfil_image_profile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+
+        app:layout_constraintBottom_toTopOf="@id/perfil_til_email"
+        app:layout_constraintStart_toStartOf="@id/guideV10"
+        app:layout_constraintEnd_toEndOf="@id/guideV90"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_baseline_image_24"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

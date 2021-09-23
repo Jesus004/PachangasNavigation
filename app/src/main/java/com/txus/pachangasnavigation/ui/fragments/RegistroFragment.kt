@@ -5,56 +5,174 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.NavHostController
+import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.txus.pachangasnavigation.R
+import com.txus.pachangasnavigation.databinding.FragmentRegistroBinding
+import com.txus.pachangasnavigation.models.Usuario
+import com.txus.pachangasnavigation.viewmodel.UsuarioViewModel
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [RegistroFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RegistroFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var binding: FragmentRegistroBinding? = null
+
+    private val model: UsuarioViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_registro, container, false)
+
+        binding = FragmentRegistroBinding.inflate(layoutInflater, container, false)
+
+        val view = binding!!.root
+
+        binding!!.registroBtnRegistrar.setOnClickListener {
+
+            val nombre = binding!!.registroTieNombre
+            val email = binding!!.registroTieEmail
+            val password1 = binding!!.registroTiePass1
+            val password2 = binding!!.registroTiePass2
+
+            if (nombre.text.toString().isNullOrBlank()) {
+
+                Snackbar.make(
+                    view,
+                    "Revisa los campos, no pueden estar vacíos...cohone!",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            if (email.text.toString().isNullOrBlank()) {
+
+                Snackbar.make(
+                    view,
+                    "Revisa los campos, no pueden estar vacíos...cohone!",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            if (password1.text.toString().isNullOrBlank()) {
+
+                Snackbar.make(
+                    view,
+                    "Revisa los campos, no pueden estar vacíos...cohone!",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            if (password2.text.toString().isNullOrBlank()) {
+
+                Snackbar.make(
+                    view,
+                    "Revisa los campos, no pueden estar vacíos...cohone!",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            if (password1.text.toString() != password2.text.toString()) {
+                Snackbar.make(
+                    view,
+                    "Las contraseñas no coinciden  ...cohone!",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+
+            }
+
+            val usuario = Usuario(
+                binding!!.registroTieNombre.text.toString(),
+                binding!!.registroTieEmail.text.toString(),
+                0,
+                "",
+                Date(System.currentTimeMillis()),
+                Date(System.currentTimeMillis())
+            )
+
+            model.registro(usuario, password1.text.toString()).observe(viewLifecycleOwner,
+                { exception ->
+
+                    if (exception == null) {
+                        Snackbar.make(
+                            view,
+                            "Usuario registrado con éxito...olé!!",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                        NavHostFragment.findNavController(this).navigate(R.id.loginFragment)
+                    } else {
+
+
+                        when (exception) {
+
+                            is FirebaseAuthUserCollisionException -> {
+
+                                Snackbar.make(
+                                    view,
+                                    "El email ya se usa en otra cuenta",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            }
+
+
+                            is FirebaseFirestoreException -> {
+
+                                Snackbar.make(
+                                    view,
+                                    "No se ha podido registrar al nuevo usuario",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            }
+
+                            is FirebaseAuthInvalidUserException -> {
+
+                                Snackbar.make(
+                                    view,
+                                    "No se ha podido actualizar nombre de usuario",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            }
+
+                            is FirebaseAuthWeakPasswordException -> {
+
+                                Snackbar.make(
+                                    view,
+                                    "Contraseña muuuy débil, debes poner 6 caracteres",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            }
+                            else ->
+
+                                Snackbar.make(
+                                    view,
+                                    "No se ha podido registrar el usuario de forma correcta",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                        }
+
+
+                    }
+
+
+                })
+
+
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RegistroFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RegistroFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

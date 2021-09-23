@@ -1,60 +1,126 @@
 package com.txus.pachangasnavigation.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.txus.pachangasnavigation.App
 import com.txus.pachangasnavigation.R
+import com.txus.pachangasnavigation.databinding.FragmentLoginBinding
+import com.txus.pachangasnavigation.viewmodel.UsuarioViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+
+    private var _binding: FragmentLoginBinding? = null
+    private val model: UsuarioViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        _binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
+
+        val view = _binding!!.root
+        val binding = _binding!!
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+
+
+        binding.btnRegistro.setOnClickListener {
+
+            NavHostFragment.findNavController(this).navigate(R.id.registroFragment)
+
+        }
+
+        binding.btnLogin.setOnClickListener {
+
+
+            val email = binding.loginTieEmail
+            val password = binding.loginTiePassword
+
+            if (email.text.toString().isBlank()) {
+
+                Snackbar.make(
+                    view,
+                    "los campos no pueden estar vacios...cohone!!",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+            if (password.text.toString().isBlank()) {
+
+                Snackbar.make(
+                    view,
+                    "los campos no pueden estar vacios...cohone!!",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            model.login(email.text.toString(), password.text.toString())
+                .observe(viewLifecycleOwner, { task ->
+
+                    if (task.isSuccessful) {
+                        NavHostFragment.findNavController(this)
+                            .navigate(R.id.action_loginFragment_to_bottom_nav_graph)
+                    } else {
+
+
+                        when (task.exception) {
+
+                            is FirebaseAuthInvalidUserException -> {
+
+                                Snackbar.make(
+                                    view,
+                                    "Debes registrarte para entrar...cohone!!",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            }
+                            else -> {
+
+                                Snackbar.make(
+                                    view,
+                                    "Error...no me digas porque pero no puedes entrar...cohone!",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            }
+
+                        }
+                    }
+
+
+                })
+
+
+        }
+        return view
+
+
+    }
+/*
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = App.getAuth().currentUser
+        if (currentUser != null) {
+
+            goToMain()
+        }
+    }*/
+
+    private fun goToMain() {
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_loginFragment_to_bottom_nav_graph)
+
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }
