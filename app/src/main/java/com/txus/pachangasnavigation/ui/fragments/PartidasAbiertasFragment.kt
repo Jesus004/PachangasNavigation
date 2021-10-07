@@ -1,6 +1,5 @@
 package com.txus.pachangasnavigation.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,19 +8,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.txus.pachangasnavigation.App
 import com.txus.pachangasnavigation.adapters.RecyclerViewAdapter
 import com.txus.pachangasnavigation.databinding.FragmentPartidasAbiertasBinding
-import com.txus.pachangasnavigation.listeners.MainListener
 import com.txus.pachangasnavigation.models.Partida
-import com.txus.pachangasnavigation.ui.activities.MainActivity
+import com.txus.pachangasnavigation.models.Usuario
 import com.txus.pachangasnavigation.viewmodel.PartidasViewModel
+import com.txus.pachangasnavigation.viewmodel.UsuarioViewModel
 
 class PartidasAbiertasFragment : Fragment() {
     private var binding: FragmentPartidasAbiertasBinding? = null
-    private val model:PartidasViewModel by viewModels()
-
-
+    private val model: PartidasViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -35,9 +31,12 @@ class PartidasAbiertasFragment : Fragment() {
 
         // Inflate the layout for this fragment
 
-        model.getPartidas().observe(viewLifecycleOwner,{
+        model.getPartidas().observe(viewLifecycleOwner, {
+
 
             createRecyclerView(it)
+
+
         })
 
 
@@ -59,30 +58,30 @@ class PartidasAbiertasFragment : Fragment() {
 
 
     }
+/*
 
-  /*  private fun cargarPartidas(): List<Partida> {
-        val partidas = mutableListOf<Partida>()
-
-
-
-
-        partidas.add(Partida("frontenis", 4, "14-09-2021", 19, "Valcabado"))
-        partidas.add(Partida("futbol", 22, "14-09-2021", 19, "Santa Maria"))
-        partidas.add(Partida("padel", 4, "14-09-2021", 19, "Valencia de don juan"))
-        partidas.add(Partida("pinpong", 2, "14-09-2021", 19, "Valencia de don juan"))
-        partidas.add(Partida("frontenis", 4, "14-09-2021", 19, "Pobladura"))
-        partidas.add(Partida("padel", 4, "14-09-2021", 19, "Castrogonzalo"))
-        partidas.add(Partida("padel", 4, "14-09-2021", 19, "Valencia"))
-        partidas.add(Partida("padel", 4, "14-09-2021", 19, "zpotes"))
-        partidas.add(Partida("tenis", 4, "14-09-2021", 19, "Valencia de don juan"))
-        partidas.add(Partida("frontenis", 4, "14-09-2021", 19, "Valcabado"))
-        partidas.add(Partida("frontenis", 4, "14-09-2021", 19, "Valcabado"))
-
-        return partidas
-
-    }*/
+      private fun cargarPartidas(): List<Partida> {
+          val partidas = mutableListOf<Partida>()
 
 
+
+
+          partidas.add(Partida("frontenis", 4, "14-09-2021", 19, "Valcabado"))
+          partidas.add(Partida("futbol", 22, "14-09-2021", 19, "Santa Maria"))
+          partidas.add(Partida("padel", 4, "14-09-2021", 19, "Valencia de don juan"))
+          partidas.add(Partida("pinpong", 2, "14-09-2021", 19, "Valencia de don juan"))
+          partidas.add(Partida("frontenis", 4, "14-09-2021", 19, "Pobladura"))
+          partidas.add(Partida("padel", 4, "14-09-2021", 19, "Castrogonzalo"))
+          partidas.add(Partida("padel", 4, "14-09-2021", 19, "Valencia"))
+          partidas.add(Partida("padel", 4, "14-09-2021", 19, "zpotes"))
+          partidas.add(Partida("tenis", 4, "14-09-2021", 19, "Valencia de don juan"))
+          partidas.add(Partida("frontenis", 4, "14-09-2021", 19, "Valcabado"))
+          partidas.add(Partida("frontenis", 4, "14-09-2021", 19, "Valcabado"))
+
+          return partidas
+
+      }
+*/
 
 
 }

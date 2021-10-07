@@ -40,6 +40,10 @@ class PerfilFragment : Fragment() {
         var binding=_binding!!
         val view=binding.root
 
+        binding.perfilBtnActualizar.setOnClickListener {
+            save()}
+
+
         model.findOneById(App.getAuth().currentUser!!.uid).observe(viewLifecycleOwner,{
             usuario=it
             if (!usuario.imageUrl.isNullOrBlank()){
@@ -62,6 +66,7 @@ class PerfilFragment : Fragment() {
 
 
 
+
         })
 
         binding.perfilImageProfile.setOnClickListener {
@@ -69,14 +74,14 @@ class PerfilFragment : Fragment() {
             startActivityForResult(intent,CODE_IMAGE_PICK)
         }
 
-        binding.perfilBtnActualizar.setOnClickListener {
-            save()
-        }
+
         return view
     }
 
     private fun save() {
        if (uriFoto!=null){
+
+
 
            val storage=App.getStorage()
            val reference=

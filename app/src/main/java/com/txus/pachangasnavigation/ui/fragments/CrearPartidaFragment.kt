@@ -14,7 +14,9 @@ import com.txus.pachangasnavigation.App
 import com.txus.pachangasnavigation.R
 import com.txus.pachangasnavigation.databinding.FragmentCrearPartidaBinding
 import com.txus.pachangasnavigation.listeners.MainListener
+import com.txus.pachangasnavigation.models.Usuario
 import com.txus.pachangasnavigation.ui.activities.MainActivity
+import com.txus.pachangasnavigation.utils.Constantes
 import com.txus.pachangasnavigation.viewmodel.UsuarioViewModel
 
 class CrearPartidaFragment : Fragment() {
@@ -22,6 +24,7 @@ class CrearPartidaFragment : Fragment() {
     private var listener: MainListener? = null
     private val db = FirebaseFirestore.getInstance()
     private var _binding: FragmentCrearPartidaBinding? = null
+
 
 
     override fun onCreateView(
@@ -33,15 +36,12 @@ class CrearPartidaFragment : Fragment() {
         val view = _binding!!.root
         val binding = _binding!!
         // Inflate the layout for this fragment
-
-
         binding.crearPartidaTieFecha.setOnClickListener {
             showDatePickerDialog()
         }
         binding.btnCrearPartida.setOnClickListener {
 
             crearPartida()
-
         }
 
         return view
@@ -53,7 +53,6 @@ class CrearPartidaFragment : Fragment() {
         getFragmentManager()?.let { datePicker.show(it, "datePicker") }
 
     }
-
     @SuppressLint("SetTextI18n")
     fun onDateSelected(day: Int, month: Int, year: Int) {
         val mes = month + 1
@@ -64,17 +63,16 @@ class CrearPartidaFragment : Fragment() {
 
     private fun crearPartida() {
 
-        db.collection("partidas").document().set(
+        db.collection(Constantes.PARTIDAS).document().set(
             hashMapOf(
+                "usuario" to App.getAuth().currentUser!!.displayName,
                 "deporte" to _binding!!.crearPartidaTieDeporte.text.toString(),
-                "nº jugadores" to _binding!!.tieNumjug.text.toString(),
+                "numJug" to _binding!!.tieNumjug.text.toString(),
                 "lugar" to _binding!!.crearPartidaTieLugar.text.toString(),
                 "fecha" to _binding!!.crearPartidaTieFecha.text.toString(),
-
+                "hora" to _binding!!.crearPartidaTieHora.text.toString()
             )
-
         )
-
     }
 
     override fun onAttach(context: Context) {

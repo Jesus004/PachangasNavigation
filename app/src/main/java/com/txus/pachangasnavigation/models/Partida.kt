@@ -1,35 +1,36 @@
 package com.txus.pachangasnavigation.models
 
-import java.util.*
+data class Partida constructor (
 
-data class Partida constructor(
-
-
+    val usuario:String,
     val deporte: String,
-    val numJug: Int,
+    val numJug:String,
     val fecha: String,
-
+    val hora:String,
     val lugar: String,
-    val nombreUsuario:String
-) {
+    val completa:Boolean,
+    ) {
 
 
+   /* constructor(
 
+       deporte: String,
+       numJug: String,
+       fecha: String,
+       hora: String,
+       lugar: String,
+       ldld:Int
 
-    constructor(
-        usuario: Usuario,
-        deporte: String,
-        numJug: Int,
-        fecha: String,
-
-        lugar: String,
-        nombreUsuario: String
     ) :
             this(
-                deporte, numJug, fecha,  lugar,nombreUsuario
-            )
+                deporte, numJug, fecha, hora, lugar
+            )*/
 
-    constructor() : this("", 0, "",  "","")
+    constructor() : this("","","","","","",false)
+
+    override fun toString(): String {
+        return "Partida(deporte='$deporte', numJug='$numJug', fecha='$fecha', hora='$hora', lugar='$lugar')"
+    }
 }
 
 

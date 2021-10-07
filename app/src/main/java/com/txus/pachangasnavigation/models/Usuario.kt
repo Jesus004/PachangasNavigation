@@ -3,7 +3,7 @@ package com.txus.pachangasnavigation.models
 import java.util.*
 
 data class Usuario (
-    val nombre:String,
+    var nombre:String,
     val email:String,
     val edad: Int,
     var imageUrl:String,

@@ -3,6 +3,8 @@ package com.txus.pachangasnavigation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.txus.pachangasnavigation.App
 import com.txus.pachangasnavigation.databinding.ItemPartidaRecyclerViewBinding
 import com.txus.pachangasnavigation.models.Partida
 import com.txus.pachangasnavigation.models.Usuario
@@ -23,15 +25,13 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
 
 
         fun rellenarDatos(partida: Partida) {
-
-            binding.tvUsuario.text=partida.nombreUsuario
-
-
+            binding.tvUsuario.text=partida.usuario
+            binding.editTextNumJug.text = partida.numJug
             binding.editTextDeporte.text = partida.deporte
-            binding.editTextNumJug.text = partida.numJug.toString()
             binding.editTextFecha.text = partida.fecha
-            // binding.editTextHora.text = partida.hora.toString()
+            binding.editTextHora.text = partida.hora
             binding.editTextLugar.text = partida.lugar
+
         }
 
         companion object {
