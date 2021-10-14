@@ -1,16 +1,14 @@
 package com.txus.pachangasnavigation.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.ktx.userProfileChangeRequest
-import com.txus.pachangasnavigation.App
+import com.txus.pachangasnavigation.R
 import com.txus.pachangasnavigation.databinding.ItemPartidaRecyclerViewBinding
 import com.txus.pachangasnavigation.models.Partida
-import com.txus.pachangasnavigation.models.Usuario
-import com.txus.pachangasnavigation.viewmodel.UsuarioViewModel
 
-class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class PartidaAdapter (val context: Context, val listener: PartidaAdapterListener): RecyclerView.Adapter<PartidaAdapter.ViewHolder>() {
 
     val lista = mutableListOf<Partida>()
 
@@ -19,18 +17,47 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
         this.lista.addAll(lista)
     }
 
+    fun addFav(partida: Partida){
+        listener.addFav(partida)
+    }
+    fun delFav(partida: Partida){
+        listener.delFav(partida)
+    }
+
 
     class ViewHolder(val binding: ItemPartidaRecyclerViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun rellenarDatos(partida: Partida) {
+        fun rellenarDatos(partida: Partida,adapter:PartidaAdapter) {
             binding.tvUsuario.text=partida.usuario
             binding.editTextNumJug.text = partida.numJug
             binding.editTextDeporte.text = partida.deporte
             binding.editTextFecha.text = partida.fecha
             binding.editTextHora.text = partida.hora
             binding.editTextLugar.text = partida.lugar
+
+            if(partida.fav){
+                binding.btnCrear.iconTint=adapter.context.getColorStateList(R.color.red)
+            }
+            else{
+                binding.btnCrear.iconTint=adapter.context.getColorStateList(R.color.grey)
+            }
+
+            binding.btnCrear.setOnClickListener {
+
+                if (partida.fav){
+
+                    partida.fav=false
+                    binding.btnCrear.iconTint=adapter.context.getColorStateList(R.color.grey)
+                    adapter.delFav(partida)
+                } else {
+
+                    partida.fav=true
+                    binding.btnCrear.iconTint=adapter.context.getColorStateList(R.color.red)
+                    adapter.addFav(partida)
+                }
+            }
 
         }
 
@@ -51,10 +78,16 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.rellenarDatos(lista[position])
+        holder.rellenarDatos(lista[position],this )
     }
 
     override fun getItemCount(): Int {
         return lista.size
+    }
+
+    interface PartidaAdapterListener{
+
+        fun addFav(partida: Partida)
+        fun delFav(partida: Partida)
     }
 }

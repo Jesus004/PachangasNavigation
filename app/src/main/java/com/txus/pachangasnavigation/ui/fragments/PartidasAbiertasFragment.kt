@@ -8,16 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.txus.pachangasnavigation.adapters.RecyclerViewAdapter
+import com.txus.pachangasnavigation.adapters.PartidaAdapter
 import com.txus.pachangasnavigation.databinding.FragmentPartidasAbiertasBinding
 import com.txus.pachangasnavigation.models.Partida
-import com.txus.pachangasnavigation.models.Usuario
+import com.txus.pachangasnavigation.viewmodel.MisPartidasViewModel
 import com.txus.pachangasnavigation.viewmodel.PartidasViewModel
-import com.txus.pachangasnavigation.viewmodel.UsuarioViewModel
 
-class PartidasAbiertasFragment : Fragment() {
+class PartidasAbiertasFragment : Fragment(),PartidaAdapter.PartidaAdapterListener {
     private var binding: FragmentPartidasAbiertasBinding? = null
+    private val viewModel:MisPartidasViewModel by viewModels()
     private val model: PartidasViewModel by viewModels()
+    private lateinit var mAdapter: PartidaAdapter
 
 
     override fun onCreateView(
@@ -30,6 +31,8 @@ class PartidasAbiertasFragment : Fragment() {
 
 
         // Inflate the layout for this fragment
+
+        mAdapter = PartidaAdapter(requireContext(),this)
 
         model.getPartidas().observe(viewLifecycleOwner, {
 
@@ -47,7 +50,7 @@ class PartidasAbiertasFragment : Fragment() {
     private fun createRecyclerView(partidas: List<Partida>) {
 
 
-        val madpater = RecyclerViewAdapter()
+        val madpater = PartidaAdapter(requireContext(),this)
         madpater.PartidaAdapter(partidas)
 
         val recyclerView = binding!!.rvPartidas
@@ -56,6 +59,18 @@ class PartidasAbiertasFragment : Fragment() {
             adapter = madpater
         }
 
+
+    }
+
+    override fun addFav(partida: Partida) {
+
+        viewModel.addPartida(partida)
+
+    }
+
+    override fun delFav(partida: Partida) {
+
+        viewModel.delPartida(partida)
 
     }
 /*
