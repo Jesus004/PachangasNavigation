@@ -11,6 +11,9 @@ data class Partida constructor (
     val completa:Boolean,
     ) {
 
+    lateinit var id:String
+    var fav : Boolean=false
+
 
    /* constructor(
 
@@ -29,8 +32,10 @@ data class Partida constructor (
     constructor() : this("","","","","","",false)
 
     override fun toString(): String {
-        return "Partida(deporte='$deporte', numJug='$numJug', fecha='$fecha', hora='$hora', lugar='$lugar')"
+        return "Partida(usuario='$usuario', deporte='$deporte', numJug='$numJug', fecha='$fecha', hora='$hora', lugar='$lugar', completa=$completa, id='$id', fav=$fav)"
     }
+
+
 }
 
 
