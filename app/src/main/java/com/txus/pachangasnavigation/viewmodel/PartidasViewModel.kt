@@ -1,14 +1,10 @@
 package com.txus.pachangasnavigation.viewmodel
 
-import android.provider.Telephony
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.firestore.ktx.toObjects
 import com.txus.pachangasnavigation.App
 import com.txus.pachangasnavigation.models.Partida
 import com.txus.pachangasnavigation.utils.Constantes
@@ -22,6 +18,7 @@ class PartidasViewModel : ViewModel() {
             loadPartidas()
         }
     }
+
 
     fun getPartidas(): LiveData<List<Partida>> {
         return _partidas
@@ -51,6 +48,7 @@ class PartidasViewModel : ViewModel() {
                                 list = list.stream().map { p ->
                                     if (p.id == fav) {
                                         p.fav = true
+
                                     }; p
                                 }.collect(
                                     Collectors.toList()

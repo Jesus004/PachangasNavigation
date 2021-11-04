@@ -20,7 +20,7 @@
 
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/partida_abierta_cerrada"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Partida Abierta"

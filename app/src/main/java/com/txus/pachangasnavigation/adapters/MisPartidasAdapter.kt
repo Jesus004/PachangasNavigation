@@ -1,12 +1,10 @@
 package com.txus.pachangasnavigation.adapters
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.txus.pachangasnavigation.R
 import com.txus.pachangasnavigation.databinding.ItemMisPartidasBinding
-import com.txus.pachangasnavigation.databinding.ItemPartidaRecyclerViewBinding
 import com.txus.pachangasnavigation.models.Partida
 
 class MisPartidasAdapter :
@@ -14,7 +12,7 @@ class MisPartidasAdapter :
 
     val lista = mutableListOf<Partida>()
 
-    fun addFav(partida: Partida){
+    fun addFav(partida: Partida) {
         lista.add(partida)
         notifyItemInserted(lista.size)
     }
@@ -24,13 +22,15 @@ class MisPartidasAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
 
+        @SuppressLint("SetTextI18n")
         fun rellenarDatos(partida: Partida) {
             binding.tvUsuario.text = partida.usuario
-            binding.editTextNumJug.text = partida.numJug
+            binding.editTextNumJug.text = "${partida.usuariosApuntados}/${partida.numJug}"
             binding.editTextDeporte.text = partida.deporte
             binding.editTextFecha.text = partida.fecha
             binding.editTextHora.text = partida.hora
             binding.editTextLugar.text = partida.lugar
+            binding.usuariosApuntados.text = partida.usuariosApuntados.toString()
 
 
         }

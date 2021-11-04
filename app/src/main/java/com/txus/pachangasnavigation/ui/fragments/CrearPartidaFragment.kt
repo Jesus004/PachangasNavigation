@@ -3,28 +3,24 @@ package com.txus.pachangasnavigation.ui.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.firebase.firestore.FirebaseFirestore
 import com.txus.pachangasnavigation.App
-import com.txus.pachangasnavigation.R
 import com.txus.pachangasnavigation.databinding.FragmentCrearPartidaBinding
 import com.txus.pachangasnavigation.listeners.MainListener
-import com.txus.pachangasnavigation.models.Usuario
 import com.txus.pachangasnavigation.ui.activities.MainActivity
 import com.txus.pachangasnavigation.utils.Constantes
-import com.txus.pachangasnavigation.viewmodel.UsuarioViewModel
+import com.txus.pachangasnavigation.viewmodel.MisPartidasViewModel
 
 class CrearPartidaFragment : Fragment() {
 
     private var listener: MainListener? = null
     private val db = FirebaseFirestore.getInstance()
     private var _binding: FragmentCrearPartidaBinding? = null
-
 
 
     override fun onCreateView(
@@ -42,6 +38,8 @@ class CrearPartidaFragment : Fragment() {
         binding.btnCrearPartida.setOnClickListener {
 
             crearPartida()
+
+
         }
 
         return view
@@ -53,6 +51,7 @@ class CrearPartidaFragment : Fragment() {
         getFragmentManager()?.let { datePicker.show(it, "datePicker") }
 
     }
+
     @SuppressLint("SetTextI18n")
     fun onDateSelected(day: Int, month: Int, year: Int) {
         val mes = month + 1
@@ -63,16 +62,23 @@ class CrearPartidaFragment : Fragment() {
 
     private fun crearPartida() {
 
+
         db.collection(Constantes.PARTIDAS).document().set(
             hashMapOf(
                 "usuario" to App.getAuth().currentUser!!.displayName,
                 "deporte" to _binding!!.crearPartidaTieDeporte.text.toString(),
-                "numJug" to _binding!!.tieNumjug.text.toString(),
+                "numJug" to _binding!!.tieNumjug.text.toString().toInt(),
                 "lugar" to _binding!!.crearPartidaTieLugar.text.toString(),
                 "fecha" to _binding!!.crearPartidaTieFecha.text.toString(),
-                "hora" to _binding!!.crearPartidaTieHora.text.toString()
+                "hora" to _binding!!.crearPartidaTieHora.text.toString(),
+                "usuariosApuntados" to 0,
+                "partidaCompleta" to false
+
+
             )
         )
+
+
     }
 
     override fun onAttach(context: Context) {
@@ -82,5 +88,6 @@ class CrearPartidaFragment : Fragment() {
         listener!!.showBottomNavigation()
 
     }
+
 
 }

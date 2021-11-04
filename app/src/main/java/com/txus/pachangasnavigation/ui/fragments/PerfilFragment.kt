@@ -4,16 +4,15 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import com.txus.pachangasnavigation.App
-import com.txus.pachangasnavigation.R
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.txus.pachangasnavigation.App
 import com.txus.pachangasnavigation.databinding.FragmentPerfilBinding
 import com.txus.pachangasnavigation.models.Usuario
 import com.txus.pachangasnavigation.utils.Constantes
@@ -37,7 +36,7 @@ class PerfilFragment : Fragment() {
     ): View? {
 
         _binding= FragmentPerfilBinding.inflate(layoutInflater,container,false)
-        var binding=_binding!!
+        val binding=_binding!!
         val view=binding.root
 
         binding.perfilBtnActualizar.setOnClickListener {
@@ -46,7 +45,7 @@ class PerfilFragment : Fragment() {
 
         model.findOneById(App.getAuth().currentUser!!.uid).observe(viewLifecycleOwner,{
             usuario=it
-            if (!usuario.imageUrl.isNullOrBlank()){
+            if (!usuario.imageUrl.isBlank()){
 
                 val circularProgress=CircularProgressDrawable(requireContext())
                 circularProgress.strokeWidth=5f

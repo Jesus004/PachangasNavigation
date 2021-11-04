@@ -1,5 +1,6 @@
 package com.txus.pachangasnavigation.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,19 +9,23 @@ import com.txus.pachangasnavigation.R
 import com.txus.pachangasnavigation.databinding.ItemPartidaRecyclerViewBinding
 import com.txus.pachangasnavigation.models.Partida
 
-class PartidaAdapter (val context: Context, val listener: PartidaAdapterListener): RecyclerView.Adapter<PartidaAdapter.ViewHolder>() {
+class PartidaAdapter(val context: Context, val listener: PartidaAdapterListener) :
+    RecyclerView.Adapter<PartidaAdapter.ViewHolder>() {
 
     val lista = mutableListOf<Partida>()
+
 
     fun PartidaAdapter(lista: List<Partida>) {
 
         this.lista.addAll(lista)
     }
 
-    fun addFav(partida: Partida){
+    fun addFav(partida: Partida) {
         listener.addFav(partida)
+
     }
-    fun delFav(partida: Partida){
+
+    fun delFav(partida: Partida) {
         listener.delFav(partida)
     }
 
@@ -29,34 +34,48 @@ class PartidaAdapter (val context: Context, val listener: PartidaAdapterListener
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun rellenarDatos(partida: Partida,adapter:PartidaAdapter) {
-            binding.tvUsuario.text=partida.usuario
-            binding.editTextNumJug.text = partida.numJug
+        @SuppressLint("SetTextI18n")
+        fun rellenarDatos(partida: Partida, adapter: PartidaAdapter) {
+            binding.tvUsuario.text = partida.usuario
+            binding.editTextNumJug.text =
+                partida.usuariosApuntados.toString() + "/" + partida.numJug
             binding.editTextDeporte.text = partida.deporte
             binding.editTextFecha.text = partida.fecha
             binding.editTextHora.text = partida.hora
             binding.editTextLugar.text = partida.lugar
 
-            if(partida.fav){
-                binding.btnCrear.iconTint=adapter.context.getColorStateList(R.color.red)
+            if (partida.fav) {
+                binding.btnCrear.iconTint = adapter.context.getColorStateList(R.color.red)
+
+
+            } else {
+                binding.btnCrear.iconTint = adapter.context.getColorStateList(R.color.grey)
             }
-            else{
-                binding.btnCrear.iconTint=adapter.context.getColorStateList(R.color.grey)
+
+            if (partida.completa) {
+
+                binding.btnCrear.isEnabled = false
             }
 
             binding.btnCrear.setOnClickListener {
 
-                if (partida.fav){
+                if (partida.fav) {
 
-                    partida.fav=false
-                    binding.btnCrear.iconTint=adapter.context.getColorStateList(R.color.grey)
+                    partida.fav = false
+                    binding.btnCrear.iconTint = adapter.context.getColorStateList(R.color.grey)
                     adapter.delFav(partida)
+
+
                 } else {
 
-                    partida.fav=true
-                    binding.btnCrear.iconTint=adapter.context.getColorStateList(R.color.red)
+                    partida.fav = true
+                    binding.btnCrear.iconTint = adapter.context.getColorStateList(R.color.red)
                     adapter.addFav(partida)
+
+
                 }
+
+
             }
 
         }
@@ -78,16 +97,21 @@ class PartidaAdapter (val context: Context, val listener: PartidaAdapterListener
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.rellenarDatos(lista[position],this )
+        holder.rellenarDatos(lista[position], this)
     }
 
     override fun getItemCount(): Int {
         return lista.size
     }
 
-    interface PartidaAdapterListener{
+    interface PartidaAdapterListener {
 
-        fun addFav(partida: Partida)
+        fun addFav(partida: Partida) {
+
+        }
+
         fun delFav(partida: Partida)
+
+
     }
 }

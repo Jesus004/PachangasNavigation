@@ -25,7 +25,7 @@ class UsuarioViewModel : ViewModel() {
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                data.value=task
+                data.value = task
             }
         return data
 
@@ -88,6 +88,7 @@ class UsuarioViewModel : ViewModel() {
             .document(uid)
             .get()
             .addOnSuccessListener {
+
                 val usuario = it.toObject<Usuario>()
                 data.value = usuario!!
             }

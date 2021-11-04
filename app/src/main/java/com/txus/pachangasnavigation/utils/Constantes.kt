@@ -7,5 +7,6 @@ class Constantes {
         val PARTIDAS="partidas"
         val IMAGENES="imagenes"
         val MISPARTIDAS="mispartidas"
+        val USUARIOSAPUNTADOS="usuariosApuntados"
     }
 }

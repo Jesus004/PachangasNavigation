@@ -74,7 +74,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/crear_partida_tie_lugar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:text="Zotes"/>
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -96,7 +97,8 @@
             android:id="@+id/crear_partida_tie_hora"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="time" />
+            android:inputType="time"
+            android:text="22:00"/>
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -116,7 +118,8 @@
             android:id="@+id/crear_partida_tie_fecha"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="date"/>
+            android:inputType="date"
+            android:text="10-10-2021"/>
 
 
 
@@ -138,7 +141,7 @@
             android:id="@+id/tie_numjug"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text"/>
+            android:inputType="number"/>
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -152,13 +155,15 @@
         android:hint="Deporte"
         app:layout_constraintBottom_toTopOf="@id/til_numjug"
         app:layout_constraintEnd_toStartOf="@id/guide_line_v90"
-        app:layout_constraintStart_toEndOf="@id/guide_line_v10">
+        app:layout_constraintStart_toEndOf="@id/guide_line_v10"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/crear_partida_tie_deporte"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:text="futbol"/>
 
 
 
