@@ -12,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.txus.pachangasnavigation.App
 import com.txus.pachangasnavigation.databinding.FragmentCrearPartidaBinding
 import com.txus.pachangasnavigation.listeners.MainListener
+import com.txus.pachangasnavigation.models.Partida
 import com.txus.pachangasnavigation.ui.activities.MainActivity
 import com.txus.pachangasnavigation.utils.Constantes
 import com.txus.pachangasnavigation.viewmodel.MisPartidasViewModel
@@ -75,6 +76,7 @@ class CrearPartidaFragment : Fragment() {
                 "partidaCompleta" to false
 
 
+
             )
         )
 
@@ -86,6 +88,8 @@ class CrearPartidaFragment : Fragment() {
         listener = context as MainActivity
 
         listener!!.showBottomNavigation()
+
+
 
     }
 

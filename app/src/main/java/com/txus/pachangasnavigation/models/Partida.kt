@@ -14,6 +14,8 @@ data class Partida constructor(
 
     lateinit var id: String
     var fav: Boolean = false
+    var notificacion:Boolean = false
+    var completaaa=false
 
 
     constructor() : this("", "", "", "", "", 0, false, 0)

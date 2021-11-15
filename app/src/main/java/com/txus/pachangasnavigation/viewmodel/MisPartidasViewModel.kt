@@ -1,6 +1,5 @@
 package com.txus.pachangasnavigation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,10 +14,13 @@ class MisPartidasViewModel : ViewModel() {
     private val firestore = App.getFirestore()
     private val auth = App.getAuth()
 
+
     fun addPartida(partida: Partida) {
 
         firestore.collection(Constantes.USUARIOS).document(auth.currentUser!!.uid)
             .update(Constantes.MISPARTIDAS, FieldValue.arrayUnion(partida.id))
+
+
 
         firestore.collection(Constantes.PARTIDAS).document(partida.id)
             .update(
@@ -32,10 +34,7 @@ class MisPartidasViewModel : ViewModel() {
                 "usuariosApuntados",
                 FieldValue.increment(1)
 
-
             )
-
-
 
         firestore.collection(Constantes.PARTIDAS).document(partida.id).get().addOnSuccessListener {
 
@@ -45,21 +44,20 @@ class MisPartidasViewModel : ViewModel() {
 
             if (jugApuntados == jugTotal) {
 
-                partida.completa = true
+                partida.completaaa = true
                 firestore.collection(Constantes.PARTIDAS).document(partida.id)
                     .update("partidaCompleta", partida.completa)
 
 
             }
 
-            Log.d("Partida completa", "${partida.completa}  ${partida.deporte} ")
         }
-
 
     }
 
 
     fun delPartida(partida: Partida) {
+
         partida.completa = false
         firestore.collection(Constantes.PARTIDAS).document(partida.id)
             .update("partidaCompleta", partida.completa)
@@ -77,10 +75,12 @@ class MisPartidasViewModel : ViewModel() {
                 "usuariosApuntados",
                 FieldValue.increment(-1)
             )
-        Log.d("Datos doc", "   ${partida.completa}  ${partida.deporte}")
+
 
 
     }
+
+
 
 
     fun findAllPartidas(): LiveData<Partida?> {
@@ -100,6 +100,12 @@ class MisPartidasViewModel : ViewModel() {
                         firestore.collection(Constantes.PARTIDAS).document(fav).get()
                             .addOnSuccessListener {
                                 liveData.value = it.toObject<Partida>()!!
+                                val partida=it.toObject<Partida>()
+                              //  val usuario=it.getString("idUsuario")!!
+
+                                partida?.completaaa=it.getBoolean("partidaCompleta")!!
+
+
                             }
 
                     }
@@ -108,13 +114,9 @@ class MisPartidasViewModel : ViewModel() {
 
                     liveData.value = null
 
-
                 }
 
-
             }
-
-
 
 
         return liveData

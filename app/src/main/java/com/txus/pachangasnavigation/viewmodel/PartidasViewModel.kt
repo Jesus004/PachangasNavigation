@@ -32,8 +32,11 @@ class PartidasViewModel : ViewModel() {
                 var list = mutableListOf<Partida>()
                 for (document in documentos) {
                     val partida = document.toObject<Partida>()
+                    partida.completaaa=document.getBoolean("partidaCompleta")!!
+
                     partida.id = document.id
                     list.add(partida)
+
                 }
 
                 firestore.collection(Constantes.USUARIOS).document(App.getAuth().currentUser!!.uid)
@@ -55,7 +58,7 @@ class PartidasViewModel : ViewModel() {
                                 )
                             }
 
-                            Log.e("TAG", list.toString())
+                            Log.e("TAGARR", list.toString())
 
                             _partidas.value = list
 

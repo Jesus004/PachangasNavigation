@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.txus.pachangasnavigation.R
 import com.txus.pachangasnavigation.databinding.ItemPartidaRecyclerViewBinding
 import com.txus.pachangasnavigation.models.Partida
+import com.txus.pachangasnavigation.ui.activities.MainActivity
 
 class PartidaAdapter(val context: Context, val listener: PartidaAdapterListener) :
     RecyclerView.Adapter<PartidaAdapter.ViewHolder>() {
@@ -20,8 +21,10 @@ class PartidaAdapter(val context: Context, val listener: PartidaAdapterListener)
         this.lista.addAll(lista)
     }
 
+
     fun addFav(partida: Partida) {
         listener.addFav(partida)
+
 
     }
 
@@ -37,14 +40,26 @@ class PartidaAdapter(val context: Context, val listener: PartidaAdapterListener)
         @SuppressLint("SetTextI18n")
         fun rellenarDatos(partida: Partida, adapter: PartidaAdapter) {
             binding.tvUsuario.text = partida.usuario
-            binding.editTextNumJug.text =
-                partida.usuariosApuntados.toString() + "/" + partida.numJug
+            binding.editTextNumJug.text = partida.usuariosApuntados.toString() + "/" + partida.numJug
             binding.editTextDeporte.text = partida.deporte
             binding.editTextFecha.text = partida.fecha
             binding.editTextHora.text = partida.hora
             binding.editTextLugar.text = partida.lugar
 
+            if (partida.completaaa ){
+                binding.btnCrear.isEnabled=false
+
+                binding.tvEstado.text="Partida Completa"
+            }else{
+                binding.btnCrear.isEnabled=true
+                binding.tvEstado.text="Partida Incompleta"
+            }
+
+
+
             if (partida.fav) {
+
+
                 binding.btnCrear.iconTint = adapter.context.getColorStateList(R.color.red)
 
 
@@ -52,14 +67,15 @@ class PartidaAdapter(val context: Context, val listener: PartidaAdapterListener)
                 binding.btnCrear.iconTint = adapter.context.getColorStateList(R.color.grey)
             }
 
-            if (partida.completa) {
 
-                binding.btnCrear.isEnabled = false
-            }
+
+
 
             binding.btnCrear.setOnClickListener {
 
                 if (partida.fav) {
+
+
 
                     partida.fav = false
                     binding.btnCrear.iconTint = adapter.context.getColorStateList(R.color.grey)
@@ -98,6 +114,7 @@ class PartidaAdapter(val context: Context, val listener: PartidaAdapterListener)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.rellenarDatos(lista[position], this)
+
     }
 
     override fun getItemCount(): Int {
@@ -105,6 +122,7 @@ class PartidaAdapter(val context: Context, val listener: PartidaAdapterListener)
     }
 
     interface PartidaAdapterListener {
+
 
         fun addFav(partida: Partida) {
 

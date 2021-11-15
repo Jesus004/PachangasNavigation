@@ -12,6 +12,8 @@ class MisPartidasAdapter :
 
     val lista = mutableListOf<Partida>()
 
+
+
     fun addFav(partida: Partida) {
         lista.add(partida)
         notifyItemInserted(lista.size)
@@ -22,6 +24,8 @@ class MisPartidasAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
 
+
+
         @SuppressLint("SetTextI18n")
         fun rellenarDatos(partida: Partida) {
             binding.tvUsuario.text = partida.usuario
@@ -30,7 +34,15 @@ class MisPartidasAdapter :
             binding.editTextFecha.text = partida.fecha
             binding.editTextHora.text = partida.hora
             binding.editTextLugar.text = partida.lugar
-            binding.usuariosApuntados.text = partida.usuariosApuntados.toString()
+
+
+            if (partida.completaaa && partida.fav){
+                binding.estadoMispartidas.text="Partida Completa"
+            }else{
+
+                binding.estadoMispartidas.text="Partida "
+            }
+
 
 
         }
