@@ -4,46 +4,33 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.txus.pachangasnavigation.databinding.ItemMisPartidasBinding
+import com.txus.pachangasnavigation.databinding.ItemPartidasCerradasBinding
 import com.txus.pachangasnavigation.models.Partida
 
-class MisPartidasAdapter :
-    RecyclerView.Adapter<MisPartidasAdapter.ViewHolder>() {
+class PartidasCerradasAdapter :
+    RecyclerView.Adapter<PartidasCerradasAdapter.ViewHolder>() {
 
     val lista = mutableListOf<Partida>()
 
+    fun PartidasCerradasAdapter(lista: List<Partida>) {
 
-
-    fun addFav(partida: Partida) {
-        lista.add(partida)
-        notifyItemInserted(lista.size)
+        this.lista.addAll(lista)
     }
 
 
-    class ViewHolder(val binding: ItemMisPartidasBinding) :
+    class ViewHolder(val binding: ItemPartidasCerradasBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-
 
 
         @SuppressLint("SetTextI18n")
         fun rellenarDatos(partida: Partida) {
             binding.tvUsuario.text = partida.usuario
-            binding.editTextNumJug.text = "${partida.usuariosApuntados}/${partida.numJug}"
+            binding.editTextNumJug.text =
+                partida.usuariosApuntados.toString() + "/" + partida.numJug
             binding.editTextDeporte.text = partida.deporte
             binding.editTextFecha.text = partida.fecha
             binding.editTextHora.text = partida.hora
             binding.editTextLugar.text = partida.lugar
-
-/*
-            if (partida.completaaa && partida.fav){
-                binding.estadoMispartidas.text="Partida Completa"
-            }else{
-
-                binding.estadoMispartidas.text="Partida "
-            }*/
-
-
 
         }
 
@@ -51,17 +38,16 @@ class MisPartidasAdapter :
 
             fun crearViewHolder(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemMisPartidasBinding.inflate(layoutInflater, parent, false)
+                val binding = ItemPartidasCerradasBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.crearViewHolder(parent)
     }
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.rellenarDatos(lista[position])

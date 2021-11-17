@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.txus.pachangasnavigation.App
 import com.txus.pachangasnavigation.databinding.FragmentCrearPartidaBinding
@@ -37,6 +38,38 @@ class CrearPartidaFragment : Fragment() {
             showDatePickerDialog()
         }
         binding.btnCrearPartida.setOnClickListener {
+
+            if (binding.crearPartidaTieDeporte.text.isNullOrBlank())
+                Snackbar.make(
+                    view,
+                    "Debes introducir un deporte",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+
+            if (binding.tieNumjug.text.isNullOrEmpty())
+                Snackbar.make(
+                    view,
+                    "Debes introducir número de jugadores",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            if (binding.crearPartidaTieFecha.text.isNullOrBlank())
+                Snackbar.make(
+                    view,
+                    "Debes introducir una fecha",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            if (binding.crearPartidaTieLugar.text.isNullOrBlank())
+                Snackbar.make(
+                    view,
+                    "Debes introducir un lugar",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            if (binding.crearPartidaTieHora.text.isNullOrBlank())
+                Snackbar.make(
+                    view,
+                    "Debes introducir una hora",
+                    Snackbar.LENGTH_SHORT
+                ).show()
 
             crearPartida()
 
@@ -87,7 +120,7 @@ class CrearPartidaFragment : Fragment() {
         super.onAttach(context)
         listener = context as MainActivity
 
-        listener!!.showBottomNavigation()
+       // listener!!.showBottomNavigation()
 
 
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_nav_graph"
-    app:startDestination="@id/crearpartidafragment">
+    app:startDestination="@id/partidasabiertasfragment">
     <fragment
 
         android:id="@+id/partidasabiertasfragment"
@@ -25,4 +25,9 @@
         android:name="com.txus.pachangasnavigation.ui.fragments.PerfilFragment"
         android:label="fragment_perfil"
         tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/partidascerradasfragment"
+        android:name="com.txus.pachangasnavigation.ui.fragments.PartidasCerradasFragment"
+        android:label="fragment_partidas_cerradas"
+        tools:layout="@layout/fragment_partidas_cerradas" />
 </navigation>

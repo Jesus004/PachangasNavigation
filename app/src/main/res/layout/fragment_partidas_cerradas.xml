@@ -4,33 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.PartidasAbiertasFragment"
+    tools:context=".ui.fragments.PartidasCerradasFragment">
 
-    >
 
     <TextView
         android:id="@+id/partidas_cerradas_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Partidas Abiertas"
+        android:text="Partidas Cerradas"
         android:textColor="@color/color_surface"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/rv_partidas"
+        app:layout_constraintBottom_toTopOf="@+id/rv_partidas_cerradas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_partidas"
+        android:id="@+id/rv_partidas_cerradas"
         android:layout_width="379dp"
         android:layout_height="601dp"
-        android:layout_margin="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_partida_recycler_view" />
+
+        tools:listitem="@layout/item_partidas_cerradas"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.toObject
 import com.txus.pachangasnavigation.App
@@ -32,7 +33,7 @@ import com.txus.pachangasnavigation.viewmodel.PartidasViewModel
 
 class PartidasAbiertasFragment : Fragment(), PartidaAdapter.PartidaAdapterListener {
     private var listener: MainListener? = null
-   private var binding: FragmentPartidasAbiertasBinding? = null
+    private var binding: FragmentPartidasAbiertasBinding? = null
     private val viewModel: MisPartidasViewModel by viewModels()
     private val model: PartidasViewModel by viewModels()
     private lateinit var mAdapter: PartidaAdapter
@@ -55,8 +56,16 @@ class PartidasAbiertasFragment : Fragment(), PartidaAdapter.PartidaAdapterListen
 
         model.getPartidas().observe(viewLifecycleOwner, {
 
+            if (it.isEmpty())
+                Snackbar.make(
+                    view,
+                    "Aún no hay partidas registradas",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            else
 
-            createRecyclerView(it)
+
+                createRecyclerView(it)
 
 
         })
@@ -102,6 +111,9 @@ class PartidasAbiertasFragment : Fragment(), PartidaAdapter.PartidaAdapterListen
 
         listener = context as MainActivity
 
+        listener!!.showBottomNavigation()
+
+
 
 
         firestore.collection(Constantes.USUARIOS).document(usuario.uid!!)
@@ -126,8 +138,6 @@ class PartidasAbiertasFragment : Fragment(), PartidaAdapter.PartidaAdapterListen
 
                                     listener!!.createNotificationChannel()
                                 }
-
-
 
 
                             }

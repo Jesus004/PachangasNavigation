@@ -90,7 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textPassword"
-            android:text="123456"/>
+            android:text="123456"
+           />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -118,7 +119,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textEmailAddress"
-            android:text="nuniezsanmiguel@hotmail.com"/>
+            android:text="nuniezsanmiguel@hotmail.com"
+           />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,8 +131,8 @@
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
         android:padding="10dp"
-        android:src="@mipmap/images"
-        app:civ_border_color="@color/color_secondary"
+        android:src="@drawable/logo"
+        app:civ_border_color="@color/black"
         app:civ_border_width="4dp"
         app:layout_constraintBottom_toTopOf="@id/login_til_email"
         app:layout_constraintEnd_toStartOf="@id/login_Vguide90"
@@ -141,21 +143,20 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="97dp"
-        android:layout_height="29dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="PACHANGAS"
-        android:textColor="@color/color_surface"
+        android:textColor="@color/color_on_surface"
         android:textColorLink="#FFFFFF"
-        android:textDirection="firstStrongLtr"
         android:textIsSelectable="false"
-        android:textSize="14sp"
+        android:textSize="36sp"
         android:textStyle="normal|bold"
+        android:tooltipText="@string/gcm_defaultSenderId"
         app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
         app:layout_constraintEnd_toStartOf="@+id/login_Vguide90"
-        app:layout_constraintHorizontal_bias="0.543"
         app:layout_constraintStart_toStartOf="@+id/login_Vguide10"
         app:layout_constraintTop_toTopOf="@+id/login_Hguide10"
-        app:layout_constraintVertical_bias="0.932" />
+        app:layout_constraintVertical_bias="0.515" />
 
     <!--<include
         android:id="@+id/login_progress_bar"

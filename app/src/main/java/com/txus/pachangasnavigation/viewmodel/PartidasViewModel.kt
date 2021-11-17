@@ -32,10 +32,14 @@ class PartidasViewModel : ViewModel() {
                 var list = mutableListOf<Partida>()
                 for (document in documentos) {
                     val partida = document.toObject<Partida>()
+
+
                     partida.completaaa=document.getBoolean("partidaCompleta")!!
 
                     partida.id = document.id
-                    list.add(partida)
+
+                    if (!partida.completaaa)
+                       list.add(partida)
 
                 }
 

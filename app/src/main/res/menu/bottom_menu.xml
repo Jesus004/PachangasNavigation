@@ -13,10 +13,16 @@
         android:id="@+id/mispartidasfragment"
         android:icon="@drawable/ic_baseline_sports_baseball_24_yellow"
         android:title="Mis partidas"/>
+
+    <item
+        android:id="@+id/partidascerradasfragment"
+        android:icon="@drawable/ic_baseline_group_off_24"
+        android:title="P.Cerradas"/>
     <item
         android:id="@+id/miperfilfragment"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="Mi perfil"/>
+
 
 
 </menu>

@@ -24,8 +24,8 @@ class MisPartidasViewModel : ViewModel() {
 
         firestore.collection(Constantes.PARTIDAS).document(partida.id)
             .update(
-                "nommbresUsuariosApuntados",
-                FieldValue.arrayUnion(auth.currentUser!!.displayName)
+                "idUsuariosApuntados",
+                FieldValue.arrayUnion(auth.currentUser!!.uid)
             )
 
 
@@ -46,7 +46,7 @@ class MisPartidasViewModel : ViewModel() {
 
                 partida.completaaa = true
                 firestore.collection(Constantes.PARTIDAS).document(partida.id)
-                    .update("partidaCompleta", partida.completa)
+                    .update("partidaCompleta", partida.completaaa)
 
 
             }

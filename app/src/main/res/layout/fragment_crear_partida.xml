@@ -35,26 +35,15 @@
         app:layout_constraintGuide_percent="0.9" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_cancelar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:text="cancelar"
-        app:cornerRadius="15dp"
-        app:layout_constraintBottom_toTopOf="@id/guide_line_h90"
-        app:layout_constraintEnd_toStartOf="@id/guide_line_v90"
-        app:layout_constraintStart_toEndOf="@id/guide_line_v10"
-        app:strokeWidth="2dp" />
-
-    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_crear_partida"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="55dp"
         android:text="crear partida"
         app:cornerRadius="15dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guide_line_v90"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/guide_line_v10"
         app:strokeWidth="2dp" />
 
@@ -75,7 +64,7 @@
             android:id="@+id/crear_partida_tie_lugar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Zotes"/>
+           />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -98,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="time"
-            android:text="22:00"/>
+            />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -119,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="date"
-            android:text="10-10-2021"/>
+            />
 
 
 
@@ -163,7 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="text"
-            android:text="futbol"/>
+            />
 
 
 
@@ -175,19 +164,30 @@
         android:layout_width="294dp"
         android:layout_height="46dp"
 
-        android:text="  Crear Partida"
+        android:layout_marginTop="32dp"
+
+
+        android:text="       Crear Partida"
         android:textAllCaps="true"
 
-        android:textColor="@color/color_secondary_variant"
-
-
-        android:textSize="36sp"
+        android:textColor="@color/color_surface"
+        android:textSize="30sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/til_deporte"
-        app:layout_constraintEnd_toStartOf="@+id/guide_line_v90"
-
-        app:layout_constraintStart_toStartOf="@+id/guide_line_v10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="198dp"
+        android:layout_height="181dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/logo"
+
+        app:layout_constraintBottom_toTopOf="@+id/til_deporte"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

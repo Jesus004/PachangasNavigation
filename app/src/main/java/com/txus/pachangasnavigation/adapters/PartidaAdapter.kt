@@ -47,11 +47,11 @@ class PartidaAdapter(val context: Context, val listener: PartidaAdapterListener)
             binding.editTextLugar.text = partida.lugar
 
             if (partida.completaaa ){
-                binding.btnCrear.isEnabled=false
+               // binding.btnCrear.isEnabled=false
 
                 binding.tvEstado.text="Partida Completa"
             }else{
-                binding.btnCrear.isEnabled=true
+               //binding.btnCrear.isEnabled=true
                 binding.tvEstado.text="Partida Incompleta"
             }
 
